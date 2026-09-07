@@ -1,0 +1,16 @@
+SecurityEvents
+| where User == "john.smith"
+| where
+    (EventType == "Authentication" and Action in ("Failed", "Success"))
+    or EventType in ("ProcessExecution", "PrivilegeChange", "NetworkConnection")
+| project
+    TimeGenerated,
+    User,
+    Host,
+    EventType,
+    Action,
+    SourceIP,
+    Country,
+    ProcessName,
+    CommandLine
+| order by TimeGenerated asc

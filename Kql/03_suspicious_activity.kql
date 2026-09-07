@@ -1,0 +1,14 @@
+SecurityEvents
+| where User == "john.smith"
+| where TimeGenerated between (datetime(2026-09-01 09:00:00) .. datetime(2026-09-01 10:00:00))
+| project
+    TimeGenerated,
+    User,
+    Host,
+    EventType,
+    Action,
+    SourceIP,
+    Country,
+    ProcessName,
+    CommandLine
+| order by TimeGenerated asc

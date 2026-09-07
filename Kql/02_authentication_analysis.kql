@@ -1,0 +1,10 @@
+SecurityEvents
+| where EventType == "Authentication"
+| where Action == "Failed"
+| summarize
+    FailedAttempts = count(),
+    FirstAttempt = min(TimeGenerated),
+    LastAttempt = max(TimeGenerated)
+    by User, SourceIP, Country
+| where FailedAttempts >= 5
+| order by FailedAttempts desc
